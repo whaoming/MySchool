@@ -3,7 +3,6 @@ package com.wxxiaomi.myschool.view.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -25,17 +24,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.wxxiaomi.myschool.ConstantValue;
 import com.wxxiaomi.myschool.GlobalParams;
 import com.wxxiaomi.myschool.R;
-import com.wxxiaomi.myschool.bean.webpage.page.Html_Lib_Main;
-import com.wxxiaomi.myschool.bean.webpage.page.Html_Main;
-import com.wxxiaomi.myschool.bean.webpage.page.Html_lib_Login;
-import com.wxxiaomi.myschool.bean.webpage.request.ResponseData;
-import com.wxxiaomi.myschool.engine.LibraryEngineImpl;
-import com.wxxiaomi.myschool.engine.OfficeEngineImpl;
 import com.wxxiaomi.myschool.view.custom.CircularImageView;
-import com.wxxiaomi.myschool.view.custom.LoadingDialog;
-import com.wxxiaomi.myschool.view.custom.MyCodeDialog2;
-import com.wxxiaomi.myschool.view.custom.MyCodeDialog2.OkButonnListener;
-import com.wxxiaomi.myschool.view.fragment.ElectiveCourseFragment;
 import com.wxxiaomi.myschool.view.fragment.ElectiveCourseFragment1;
 import com.wxxiaomi.myschool.view.fragment.IndexFragment;
 import com.wxxiaomi.myschool.view.fragment.LibBorrowStateFragment1;
@@ -53,20 +42,20 @@ public class HomeActivity1 extends AppCompatActivity implements
 	private Fragment contentFragment; // 记录当前正在使用的fragment
 	private boolean isMenuShuffle = false;
 	private CircularImageView iv_head;
-	private Html_Main main;
-	private MainChangeListener lis;
+//	private Html_Main main;
+//	private MainChangeListener lis;
 	private CharSequence title = "首页";
 	private TextView header_tv;
 
 	/**
 	 * 图书馆登录页面bean
 	 */
-	private Html_lib_Login html_lib_login;
+//	private Html_lib_Login html_lib_login;
 	/**
 	 * 图书馆主页面bean
 	 */
-	private Html_Lib_Main html_lib_main;
-	private LibMainChangeListener libLis;
+//	private Html_Lib_Main html_lib_main;
+//	private LibMainChangeListener libLis;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -317,16 +306,16 @@ public class HomeActivity1 extends AppCompatActivity implements
 		switch (id) {
 		case ConstantValue.OfficeNoLogin:
 			// 正方系统还未登录
-			loginOfficeByNet(GlobalParams.gloUserInfo.userInfo.officeUserInfo.username,
-					GlobalParams.gloUserInfo.userInfo.officeUserInfo.password);
+//			loginOfficeByNet(GlobalParams.gloUserInfo.userInfo.officeUserInfo.username,
+//					GlobalParams.gloUserInfo.userInfo.officeUserInfo.password);
 			break;
 		case 0:
 			// office地址过期
-			handOfficeOutTime();
+//			handOfficeOutTime();
 			break;
 		case ConstantValue.LIBNOLOGIN:
 			// 图书馆未登录
-			LibLoginByNet();
+//			LibLoginByNet();
 			break;
 		default:
 			break;
@@ -339,135 +328,135 @@ public class HomeActivity1 extends AppCompatActivity implements
 	 * @param username
 	 * @param password
 	 */
-	private void loginOfficeByNet(final String username, final String password) {
-		final LoadingDialog dialog = new LoadingDialog(this).builder()
-				.setMessage("正在登录..").show();
-		new AsyncTask<String, Void, ResponseData<Html_Main>>() {
-			@Override
-			protected ResponseData<Html_Main> doInBackground(String... params) {
-				OfficeEngineImpl impl = new OfficeEngineImpl();
-//				Log.i("wang", "username=" + username + "--psd=" + password);
-				return impl.getOfficeMainHtml2BeanByOne(username, password);
-			}
-
-			@Override
-			protected void onPostExecute(ResponseData<Html_Main> result) {
-				dialog.dismiss();
-				if (result.isSuccess()) {
-
-					main = result.getObj();
-					lis.change(main);
-				} else {
-					// 获取失败
-				}
-				super.onPostExecute(result);
-			}
-		}.execute();
-
-	}
+//	private void loginOfficeByNet(final String username, final String password) {
+//		final LoadingDialog dialog = new LoadingDialog(this).builder()
+//				.setMessage("正在登录..").show();
+//		new AsyncTask<String, Void, ResponseData<Html_Main>>() {
+//			@Override
+//			protected ResponseData<Html_Main> doInBackground(String... params) {
+//				OfficeEngineImpl impl = new OfficeEngineImpl();
+////				Log.i("wang", "username=" + username + "--psd=" + password);
+//				return impl.getOfficeMainHtml2BeanByOne(username, password);
+//			}
+//
+//			@Override
+//			protected void onPostExecute(ResponseData<Html_Main> result) {
+//				dialog.dismiss();
+//				if (result.isSuccess()) {
+//
+//					main = result.getObj();
+//					lis.change(main);
+//				} else {
+//					// 获取失败
+//				}
+//				super.onPostExecute(result);
+//			}
+//		}.execute();
+//
+//	}
 
 	/**
 	 * 登录图书馆获取main并利用libLis通知
 	 */
-	private void LibLoginByNet() {
-		final LoadingDialog loodingDialog = new LoadingDialog(
-				HomeActivity1.this).builder();
-		loodingDialog.setMessage("正在获取数据....");
-		final AlertDialog errorDialog = new AlertDialog.Builder(this)
-				.setPositiveButton("确定", null).setTitle("错误").create();
-		// 显示dialog
-		final MyCodeDialog2 dialog2 = new MyCodeDialog2(this).builder();
-		dialog2.show();
-		// final MyCodeDialog dialog = new MyCodeDialog(this).builder();
-		// 获取图书馆登录页面的bean,其中包括piccode
-		new AsyncTask<String, Void, ResponseData<Html_lib_Login>>() {
-			@Override
-			protected ResponseData<Html_lib_Login> doInBackground(
-					String... params) {
-				LibraryEngineImpl engine = new LibraryEngineImpl();
-				return engine.getLibLoginPageAndCodePic();
-			}
+//	private void LibLoginByNet() {
+//		final LoadingDialog loodingDialog = new LoadingDialog(
+//				HomeActivity1.this).builder();
+//		loodingDialog.setMessage("正在获取数据....");
+//		final AlertDialog errorDialog = new AlertDialog.Builder(this)
+//				.setPositiveButton("确定", null).setTitle("错误").create();
+//		// 显示dialog
+//		final MyCodeDialog2 dialog2 = new MyCodeDialog2(this).builder();
+//		dialog2.show();
+//		// final MyCodeDialog dialog = new MyCodeDialog(this).builder();
+//		// 获取图书馆登录页面的bean,其中包括piccode
+//		new AsyncTask<String, Void, ResponseData<Html_lib_Login>>() {
+//			@Override
+//			protected ResponseData<Html_lib_Login> doInBackground(
+//					String... params) {
+//				LibraryEngineImpl engine = new LibraryEngineImpl();
+//				return engine.getLibLoginPageAndCodePic();
+//			}
+//
+//			@Override
+//			protected void onPostExecute(ResponseData<Html_lib_Login> result) {
+//				if (result.isSuccess()) {
+//
+//					html_lib_login = result.getObj();
+//					LibLogin();
+//				} else {
+//					// 重新获取地址失败
+//				}
+//				super.onPostExecute(result);
+//			}
+//
+//			/**
+//			 * 获取完图书馆登录页面的bean后，执行登录操作
+//			 */
+//			private void LibLogin() {
+//				dialog2.setImage(html_lib_login.getPicCode());
+//				dialog2.setOnOkButtonListener(new OkButonnListener() {
+//					@Override
+//					public void onClick(String input) {
+//						loodingDialog.show();
+//						login(input);
+//					}
+//
+//					private void login(final String input) {
+//						new AsyncTask<String, Void, ResponseData<Html_Lib_Main>>() {
+//
+//							@Override
+//							protected ResponseData<Html_Lib_Main> doInBackground(
+//									String... params) {
+//								LibraryEngineImpl engine = new LibraryEngineImpl();
+//								return engine.Login(html_lib_login,
+//										"131110199", "987987987", input);
+//							}
+//
+//							@Override
+//							protected void onPostExecute(
+//									ResponseData<Html_Lib_Main> result) {
+//								loodingDialog.dismiss();
+//								if (result.isSuccess()) {
+//									html_lib_main = result.getObj();
+//									libLis.change(html_lib_main);
+//									dialog2.dismiss();
+//								} else {
+//									// 登录失败:原因是验证码错误或者账号密码错误
+//									errorDialog.setMessage(result.getError());
+//									errorDialog.show();
+//								}
+//								super.onPostExecute(result);
+//							}
+//						}.execute();
+//					}
+//				});
+//
+//			}
+//		}.execute();
+//	}
 
-			@Override
-			protected void onPostExecute(ResponseData<Html_lib_Login> result) {
-				if (result.isSuccess()) {
-
-					html_lib_login = result.getObj();
-					LibLogin();
-				} else {
-					// 重新获取地址失败
-				}
-				super.onPostExecute(result);
-			}
-
-			/**
-			 * 获取完图书馆登录页面的bean后，执行登录操作
-			 */
-			private void LibLogin() {
-				dialog2.setImage(html_lib_login.getPicCode());
-				dialog2.setOnOkButtonListener(new OkButonnListener() {
-					@Override
-					public void onClick(String input) {
-						loodingDialog.show();
-						login(input);
-					}
-
-					private void login(final String input) {
-						new AsyncTask<String, Void, ResponseData<Html_Lib_Main>>() {
-
-							@Override
-							protected ResponseData<Html_Lib_Main> doInBackground(
-									String... params) {
-								LibraryEngineImpl engine = new LibraryEngineImpl();
-								return engine.Login(html_lib_login,
-										"131110199", "987987987", input);
-							}
-
-							@Override
-							protected void onPostExecute(
-									ResponseData<Html_Lib_Main> result) {
-								loodingDialog.dismiss();
-								if (result.isSuccess()) {
-									html_lib_main = result.getObj();
-									libLis.change(html_lib_main);
-									dialog2.dismiss();
-								} else {
-									// 登录失败:原因是验证码错误或者账号密码错误
-									errorDialog.setMessage(result.getError());
-									errorDialog.show();
-								}
-								super.onPostExecute(result);
-							}
-						}.execute();
-					}
-				});
-
-			}
-		}.execute();
-	}
-
-	private void handOfficeOutTime() {
-		new AsyncTask<String, Void, ResponseData<Html_Main>>() {
-			@Override
-			protected ResponseData<Html_Main> doInBackground(String... params) {
-				OfficeEngineImpl impl = new OfficeEngineImpl();
-				return impl.getOfficeMainHtml2BeanByOne(main.getUsername(),
-						main.getPassword());
-			}
-
-			@Override
-			protected void onPostExecute(ResponseData<Html_Main> result) {
-				if (result.isSuccess()) {
-					main = result.getObj();
-					lis.change(main);
-				} else {
-					// 重新获取地址失败
-				}
-				super.onPostExecute(result);
-			}
-		}.execute();
-
-	}
+//	private void handOfficeOutTime() {
+//		new AsyncTask<String, Void, ResponseData<Html_Main>>() {
+//			@Override
+//			protected ResponseData<Html_Main> doInBackground(String... params) {
+//				OfficeEngineImpl impl = new OfficeEngineImpl();
+//				return impl.getOfficeMainHtml2BeanByOne(main.getUsername(),
+//						main.getPassword());
+//			}
+//
+//			@Override
+//			protected void onPostExecute(ResponseData<Html_Main> result) {
+//				if (result.isSuccess()) {
+//					main = result.getObj();
+//					lis.change(main);
+//				} else {
+//					// 重新获取地址失败
+//				}
+//				super.onPostExecute(result);
+//			}
+//		}.execute();
+//
+//	}
 
 	public void switchFragment(Fragment f, int state) {
 		// 修改Toolbar菜单的名字
@@ -540,28 +529,28 @@ public class HomeActivity1 extends AppCompatActivity implements
 		}
 	}
 
-	public Html_Lib_Main getLibMain() {
-		return html_lib_main;
-	}
+//	public Html_Lib_Main getLibMain() {
+//		return html_lib_main;
+//	}
+//
+//	public Html_Main getOfficeHtmlMain() {
+//		return main;
+//	}
 
-	public Html_Main getOfficeHtmlMain() {
-		return main;
-	}
+//	public interface MainChangeListener {
+//		void change(Html_Main main);
+//	}
 
-	public interface MainChangeListener {
-		void change(Html_Main main);
-	}
+//	public void setMainChangeListener(MainChangeListener lis) {
+//		this.lis = lis;
+//	}
 
-	public void setMainChangeListener(MainChangeListener lis) {
-		this.lis = lis;
-	}
+//	public interface LibMainChangeListener {
+//		void change(Html_Lib_Main html_lib_main);
+//	}
 
-	public interface LibMainChangeListener {
-		void change(Html_Lib_Main html_lib_main);
-	}
-
-	public void setLibMainChangeListener(LibMainChangeListener libLis) {
-		this.libLis = libLis;
-	}
+//	public void setLibMainChangeListener(LibMainChangeListener libLis) {
+//		this.libLis = libLis;
+//	}
 
 }

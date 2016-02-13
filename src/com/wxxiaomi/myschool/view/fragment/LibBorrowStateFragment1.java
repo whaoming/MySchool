@@ -14,10 +14,10 @@ import android.widget.ListView;
 
 import com.wxxiaomi.myschool.GlobalParams;
 import com.wxxiaomi.myschool.R;
+import com.wxxiaomi.myschool.bean.lib.BookBorrowedState;
 import com.wxxiaomi.myschool.bean.lib.format.R_LibBorrowState;
 import com.wxxiaomi.myschool.bean.lib.format.R_LibMain;
 import com.wxxiaomi.myschool.bean.lib.format.common.LibReceiverData;
-import com.wxxiaomi.myschool.bean.webpage.BookBorrowedState;
 import com.wxxiaomi.myschool.engine.LibraryEngineImpl;
 import com.wxxiaomi.myschool.util.CommonUtil;
 import com.wxxiaomi.myschool.view.adapter.LibBorrowStateColumnAdapter;

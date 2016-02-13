@@ -3,35 +3,31 @@ package com.wxxiaomi.myschool.view.activity;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wxxiaomi.myschool.R;
-import com.wxxiaomi.myschool.bean.webpage.BookInfo.CollectState;
-import com.wxxiaomi.myschool.bean.webpage.page.Html_Lib_BookInfoDetail;
-import com.wxxiaomi.myschool.bean.webpage.request.ResponseData;
-import com.wxxiaomi.myschool.engine.LibraryEngineImpl;
+import com.wxxiaomi.myschool.bean.lib.BookInfo.CollectState;
 import com.wxxiaomi.myschool.view.activity.base.BaseActivity;
 
 
 public class LibBookInfoActivity extends BaseActivity {
 
-	private TextView tv_tv;
-	private Html_Lib_BookInfoDetail info;
+//	private TextView tv_tv;
+//	private Html_Lib_BookInfoDetail info;
 	private LinearLayout ll_ll;
 
 //	private BookInfo bookInfo;
-	private String url;
+//	private String url;
 
 	@Override
 	protected void initView() {
 		setContentView(R.layout.activity_library_bookinfo);
-		url = new String(getIntent().getByteArrayExtra("bookurl"));
+//		url = new String(getIntent().getByteArrayExtra("bookurl"));
 //		bookInfo = (BookInfo) getIntent().getByteArrayExtra("bookinfo");
-		tv_tv = (TextView) findViewById(R.id.tv_tv);
+//		tv_tv = (TextView) findViewById(R.id.tv_tv);
 		ll_ll = (LinearLayout) findViewById(R.id.ll_ll);
 		initTitleBar();
 		// initRight("书本");
@@ -43,37 +39,37 @@ public class LibBookInfoActivity extends BaseActivity {
 	}
 
 	private void getBookInfoByNet() {
-		new AsyncTask<String, Void, ResponseData<Html_Lib_BookInfoDetail>>() {
-			@Override
-			protected ResponseData<Html_Lib_BookInfoDetail> doInBackground(
-					String... params) {
-				LibraryEngineImpl impl = new LibraryEngineImpl();
-				return impl.getBookInfo(url);
-			}
-
-			@Override
-			protected void onPostExecute(
-					ResponseData<Html_Lib_BookInfoDetail> result) {
-				if (result.isSuccess()) {
-					info = result.getObj();
-					processData(info);
-				} else {
-				}
-
-				super.onPostExecute(result);
-			}
-		}.execute();
-
-	}
-
-	protected void processData(Html_Lib_BookInfoDetail info1) {
-//		closeMingDialog();
-		tv_tv.setText(info1.getBookInfo().getDetail());
-		if (info1.getBookInfo().getCollecLocations().size() > 0) {
-			addLocation(info1.getBookInfo().getCollecLocations());
-		}
+//		new AsyncTask<String, Void, ResponseData<Html_Lib_BookInfoDetail>>() {
+//			@Override
+//			protected ResponseData<Html_Lib_BookInfoDetail> doInBackground(
+//					String... params) {
+//				LibraryEngineImpl impl = new LibraryEngineImpl();
+//				return impl.getBookInfo(url);
+//			}
+//
+//			@Override
+//			protected void onPostExecute(
+//					ResponseData<Html_Lib_BookInfoDetail> result) {
+//				if (result.isSuccess()) {
+//					info = result.getObj();
+//					processData(info);
+//				} else {
+//				}
+//
+//				super.onPostExecute(result);
+//			}
+//		}.execute();
 
 	}
+
+//	protected void processData(Html_Lib_BookInfoDetail info1) {
+////		closeMingDialog();
+//		tv_tv.setText(info1.getBookInfo().getDetail());
+//		if (info1.getBookInfo().getCollecLocations().size() > 0) {
+//			addLocation(info1.getBookInfo().getCollecLocations());
+//		}
+//
+//	}
 
 	@SuppressLint("InflateParams")
 	private void addLocation(List<CollectState> collecLocations) {

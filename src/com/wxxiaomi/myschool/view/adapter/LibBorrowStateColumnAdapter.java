@@ -4,7 +4,7 @@ package com.wxxiaomi.myschool.view.adapter;
 import java.util.List;
 
 import com.wxxiaomi.myschool.R;
-import com.wxxiaomi.myschool.bean.webpage.BookBorrowedState;
+import com.wxxiaomi.myschool.bean.lib.BookBorrowedState;
 
 import android.content.Context;
 import android.view.View;
