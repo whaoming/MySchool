@@ -22,6 +22,7 @@ import com.wxxiaomi.myschool.view.activity.HomeActivity1.MainChangeListener;
 import com.wxxiaomi.myschool.view.adapter.OfficeElectiveCourseAdapter;
 import com.wxxiaomi.myschool.view.fragment.base.BaseFragment;
 
+// 改
 public class ElectiveCourseFragment1 extends BaseFragment {
 
 	private SwipeRefreshLayout view_refersh;
