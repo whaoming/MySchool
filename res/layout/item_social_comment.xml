@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <com.wxxiaomi.myschool.view.custom.CircularImageView
+        android:layout_margin="8dp"
+        android:id="@+id/iv_head"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/tou" />
+
+    <LinearLayout
+        android:layout_marginRight="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tv_name" />
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/gray"
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2015.5.6 12:00" />
+
+        <TextView
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:textColor="#000000"
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="哈哈上海大火撒谎撒谎撒谎撒谎" />
+
+        <TextView
+            android:textSize="14sp"
+            android:background="#50808080"
+              android:layout_marginTop="8dp"
+              android:padding="3dp"
+            android:id="@+id/tv_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="回复sdjsahdjsahdjash" />
+    </LinearLayout>
+
+</LinearLayout>

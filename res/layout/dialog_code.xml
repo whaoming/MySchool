@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_widget"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <EditText 
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:id="@+id/et_input"
+        android:layout_height="wrap_content"
+        android:hint="请输入验证码...."
+        />
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定" />
+
+</LinearLayout>

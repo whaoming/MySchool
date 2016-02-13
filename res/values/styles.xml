@@ -1,0 +1,142 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="MyAppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    
+    
+    
+    <style name="home" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+         <item name="colorPrimary">@color/white</item>
+    </style>
+    
+     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+         <item name="colorPrimary">#38A4DE</item>
+        <item name="colorPrimaryDark">#1B88CA</item>
+        <item name="colorAccent">#1B88CA</item>
+        <item name="actionMenuTextColor">#000000</item>
+        <item name="android:textColorPrimaryInverse">#fff</item>
+          <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+       <!--  <item name="android:textColorPrimaryInverse">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+         <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+         <item name="colorPrimary">@color/white</item>--> 
+        
+    </style>
+
+    <style name="fragment_findout_item">
+        <item name="android:background">#15000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- fragment_findout的item的 -->
+    <style name="fragment_findout_item_LinearLayout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="fragment_findout_item_CardView">
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+
+    <style name="fragment_findout_item_textview_up">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="fragment_findout_item_textview_down">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#70000000</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert"></style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">#ffffff</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="ActionSheetDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+    
+    <style name="StyleProgressBarMini" parent="Widget.AppCompat.ProgressBar.Horizontal">  
+  
+    <item name="android:maxHeight">50dp</item>  
+    <item name="android:minHeight">10dp</item>  
+    <item name="android:indeterminateOnly">false</item>  
+    <item name="android:indeterminateDrawable">  
+        @android:drawable/progress_indeterminate_horizontal  
+    </item>  
+  
+</style>  
+
+</resources>

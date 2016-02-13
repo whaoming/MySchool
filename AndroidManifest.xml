@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wxxiaomi.myschool"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="23" />
+    <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/MyAppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.HomeActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.HomeActivity1"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.LostActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.LostActivity2"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.SocialActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.SocialActivity1"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.SocialDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.UserInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.LibSearchActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.wxxiaomi.myschool.view.activity.LibBookInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+
+</manifest>

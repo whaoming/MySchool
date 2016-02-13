@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebebeb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#ffffff" >
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/tou" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_toRightOf="@+id/iv_head"
+            android:gravity="center_vertical|left"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/news_list_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:text="以下为他人不可见"
+        android:textColor="#80000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:drawableLeft="@drawable/pencil"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical|left"
+            android:text="学号信息"
+            android:textColor="#000000"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/news_list_line" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_tname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:text="真实姓名:王浩明"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="5dp"
+                    android:text="性别：男"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_xh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="5dp"
+                    android:text="学号：131110199"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="2dp"
+    app:cardCornerRadius="5dp"
+    app:elevation="1dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+    <LinearLayout
+        android:layout_marginLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <com.wxxiaomi.myschool.view.custom.CircularImageView
+            android:id="@+id/iv_head"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            
+            android:layout_marginRight="8dp"
+            android:src="@drawable/tou" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="username"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+          android:layout_marginLeft="8dp"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="帮帮忙，今天在中区图书馆三楼丢失的一部手机"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="2015.8.3下午"
+        android:textColor="#80000000"
+        android:textSize="12sp" />
+</LinearLayout>
+</android.support.v7.widget.CardView>
