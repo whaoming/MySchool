@@ -8,7 +8,7 @@ import com.wxxiaomi.myschool.util.SharePrefUtil;
 
 import android.content.Context;
 import android.util.Log;
-
+//
 
 public class InformationEngineImpl {
 	public R_News getNewsList(int page, boolean isCache,Context ct) {
