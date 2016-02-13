@@ -36,6 +36,7 @@ import com.wxxiaomi.myschool.view.custom.LoadingDialog;
 import com.wxxiaomi.myschool.view.custom.MyCodeDialog2;
 import com.wxxiaomi.myschool.view.custom.MyCodeDialog2.OkButonnListener;
 import com.wxxiaomi.myschool.view.fragment.ElectiveCourseFragment;
+import com.wxxiaomi.myschool.view.fragment.ElectiveCourseFragment1;
 import com.wxxiaomi.myschool.view.fragment.IndexFragment;
 import com.wxxiaomi.myschool.view.fragment.LibBorrowStateFragment1;
 import com.wxxiaomi.myschool.view.fragment.ScoreFragment1;
@@ -193,7 +194,7 @@ public class HomeActivity1 extends AppCompatActivity implements
 			break;
 		case R.id.drawer_elective:
 			setToolBarTitle("选课情况");
-			switchFragment(new ElectiveCourseFragment(), 0);
+			switchFragment(new ElectiveCourseFragment1(), 0);
 			break;
 		case R.id.drawer_lib_borrow_state:
 			setToolBarTitle("借阅情况");

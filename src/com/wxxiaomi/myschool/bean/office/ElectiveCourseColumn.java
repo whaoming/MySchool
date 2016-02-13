@@ -80,4 +80,7 @@ public class ElectiveCourseColumn {
 	 * 授课计划上传文件名
 	 */
 	public String upName;
+	
+	
+	
 }

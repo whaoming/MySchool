@@ -4,10 +4,13 @@ import java.net.URLEncoder;
 import java.util.List;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wxxiaomi.myschool.ConstantValue;
 import com.wxxiaomi.myschool.GlobalParams;
+import com.wxxiaomi.myschool.bean.office.ElectiveCourseColumn;
 import com.wxxiaomi.myschool.bean.office.Score.ScoreColumn;
 import com.wxxiaomi.myschool.bean.office.format.common.OfficeReceiveData;
 import com.wxxiaomi.myschool.bean.webpage.page.Html_Login;
@@ -23,6 +26,31 @@ import com.wxxiaomi.myschool.net.HttpClientUtil;
 import com.wxxiaomi.myschool.net.MyHttpWebUtil;
 
 public class OfficeEngineImpl {
+	
+	public OfficeReceiveData<List<ElectiveCourseColumn>> getElective(){
+		String url = ConstantValue.LOTTERY_URI
+				+ "/OfficeServlet?action=getelective";
+		String pars;
+		try {
+			pars = "&tempUrl=" + GlobalParams.gloUserInfo.tempUrl
+					+ "&username="
+					+ GlobalParams.gloUserInfo.userInfo.officeUserInfo.username
+					+ "&password="
+					+ GlobalParams.gloUserInfo.userInfo.officeUserInfo.password
+					+ "&xm=" + URLEncoder.encode("王浩明", "utf-8");
+			String json = HttpClientUtil.doPost(url, pars);
+			Log.i("wang", "获取选课情况返回的json=" + json);
+			// OfficeReceiveData<> d
+			Gson gson = new Gson();
+			OfficeReceiveData<List<ElectiveCourseColumn>> fromJson = gson.fromJson(json,
+					new TypeToken<OfficeReceiveData<List<ElectiveCourseColumn>>>() {
+					}.getType());
+			return fromJson;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * 从服务器获取成绩
@@ -55,6 +83,8 @@ public class OfficeEngineImpl {
 		// 4数据持久化';32
 		return null;
 	}
+	
+//	public OfficeReceiveData<List<ScoreColumn>>
 
 	/**
 	 * 获取正方系统主页面

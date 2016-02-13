@@ -10,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.wxxiaomi.myschool.ConstantValue;
 import com.wxxiaomi.myschool.R;
 import com.wxxiaomi.myschool.bean.office.ElectiveCourseColumn;
 import com.wxxiaomi.myschool.bean.office.format.common.OfficeReceiveData;
-import com.wxxiaomi.myschool.bean.webpage.request.ResponseData;
 import com.wxxiaomi.myschool.engine.OfficeEngineImpl;
 import com.wxxiaomi.myschool.util.CommonUtil;
-import com.wxxiaomi.myschool.view.activity.HomeActivity1;
-import com.wxxiaomi.myschool.view.activity.HomeActivity1.MainChangeListener;
 import com.wxxiaomi.myschool.view.adapter.OfficeElectiveCourseAdapter;
 import com.wxxiaomi.myschool.view.fragment.base.BaseFragment;
 
@@ -76,8 +72,7 @@ public class ElectiveCourseFragment1 extends BaseFragment {
 			@Override
 			protected OfficeReceiveData<List<ElectiveCourseColumn>> doInBackground(String... params) {
 				OfficeEngineImpl impl = new OfficeEngineImpl();
-//				return impl.getOfficeElectiveCourse2Bean(fragmentData.getElectiveCourseUrl(), fragmentData.getFromUrl());
-				return null;
+				return impl.getElective();
 			}
 
 			@Override
