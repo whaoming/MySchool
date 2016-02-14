@@ -1,9 +1,6 @@
 package com.wxxiaomi.myschool.bean.lib.format;
 
-import java.util.HashMap;
-import java.util.Map;
 
-import com.wxxiaomi.myschool.bean.lib.LibInfomation.Behave;
 import com.wxxiaomi.myschool.bean.lib.LibUserInfo;
 
 /**
@@ -16,7 +13,6 @@ public class R_LibMain{
 	/**
 	 * 参数集合
 	 */
-	public Map<String,Behave> behaves = new HashMap<String, Behave>();
 	
 	public LibUserInfo userinfo;
 	/**

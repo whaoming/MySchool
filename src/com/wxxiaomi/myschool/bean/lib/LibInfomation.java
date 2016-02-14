@@ -1,7 +1,5 @@
 package com.wxxiaomi.myschool.bean.lib;
 
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -24,16 +22,10 @@ public class LibInfomation {
 	/**
 	 * 参数集合
 	 */
-	public Map<String,Behave> behaves = new HashMap<String, Behave>();
 	
 	/**
 	 * 用户账号信息
 	 */
 	public LibUserInfo userinfo;
 	
-	public static class Behave{
-		public String pars;
-		public String url;
-		
-	}
 }

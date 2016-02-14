@@ -1,6 +1,5 @@
 package com.wxxiaomi.myschool;
 
-import com.wxxiaomi.myschool.bean.R_User.UserInfo;
 import com.wxxiaomi.myschool.util.SharePrefUtil;
 import com.wxxiaomi.myschool.view.activity.HomeActivity1;
 
@@ -33,15 +32,15 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(MainActivity.this,HomeActivity1.class);
 			boolean isRemUser = SharePrefUtil.getBoolean(this, "isRemUser", false);
 			if(isRemUser){//有记住账号
-				UserInfo userInfo = (UserInfo) SharePrefUtil.getObj(this, "userInfo");
+//				UserInfo userInfo = (UserInfo) SharePrefUtil.getObj(this, "userInfo");
 //				GlobalParams.userInfo = userInfo;
-				if(checkUserInfo(userInfo.username,userInfo.password)){
+//				if(checkUserInfo(userInfo.username,userInfo.password)){
 					//验证通过的情况下
 					
-				}else{
+//				}else{
 					//验证不通过或者网络不通
 					
-				}
+//				}
 			}else{//没记住账号的情况下
 				startActivity(intent);
 			}
@@ -57,9 +56,9 @@ public class MainActivity extends Activity {
 	 * @param username
 	 * @param password
 	 */
-	private boolean checkUserInfo(String username, String password) {
-		return false;
-	}
+//	private boolean checkUserInfo(String username, String password) {
+//		return false;
+//	}
 
 //	private void checkLogin() {
 ////		LoginByNet("131110199","987987987ww");

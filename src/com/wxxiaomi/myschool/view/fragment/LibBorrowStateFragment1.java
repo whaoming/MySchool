@@ -28,12 +28,14 @@ import com.wxxiaomi.myschool.view.fragment.base.BaseFragment;
 
 public class LibBorrowStateFragment1 extends BaseFragment {
 
-	View view;
-	// private Html_Lib_Main fragmentData;
-	// private Html_Lib_BorrowedState currentPageBean;
+	private View view;
 	private SwipeRefreshLayout v_refersh;
 	private ListView lv_lv;
 	private LibBorrowStateColumnAdapter adapter;
+	private LoadingDialog loodingDialog;
+	private MyCodeDialog2 codeDialog;
+	private String tempCookie;
+	private R_LibBorrowState currentPage;
 
 	@SuppressLint("InflateParams")
 	@Override
@@ -50,26 +52,6 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 
 	@Override
 	public void initData(Bundle savedInstanceState) {
-		// if (getActivity() instanceof HomeActivity1) {
-		// HomeActivity1 activity = (HomeActivity1) getActivity();
-		// fragmentData = activity.getLibMain();
-		// activity.setLibMainChangeListener(new LibMainChangeListener() {
-		// @Override
-		// public void change(Html_Lib_Main mains) {
-		// // ConstantValue.isLibLogin = true;
-		// fragmentData = mains;
-		// getBorrowStateByNet();
-		// }
-		// });
-		// }
-		// if (fragmentData == null) {
-		// // 图书馆未登录
-		// interFace.onFragmentCallback(this, ConstantValue.LIBNOLOGIN,
-		// null);
-		// }else
-		// {
-		// getBorrowStateByNet();
-		// }
 		loodingDialog = new LoadingDialog(ct).builder();
 		codeDialog = new MyCodeDialog2(ct).builder();
 		loodingDialog.setMessage("正在获取数据....");
@@ -89,40 +71,37 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 		
 	}
 
-	LoadingDialog loodingDialog;
-	MyCodeDialog2 codeDialog;
-	protected String tempCookie;
-	protected R_LibBorrowState currentPage;
+	
 
+	/**
+	 * 从服务器端获取图片验证码并且显示
+	 */
 	private void LoginAndGetData() {
 		// 首先获取图片验证码
-		
 		codeDialog.show();
-		showCodeDialog(codeDialog);
-		
+		showCodeDialogFromWeb(codeDialog);
 	}
 
+	/**
+	 * 获取完图片验证码后，当点击确定按钮，必须联网登录
+	 * @param input
+	 */
 	protected void LoginByNetBeforeGetData(final String input) {
 		new AsyncTask<String, Void, LibReceiverData<R_LibMain>>() {
 			@Override
 			protected LibReceiverData<R_LibMain> doInBackground(String... params) {
 				LibraryEngineImpl engine = new LibraryEngineImpl();
-//				R_LibMain loginFromServer = engine.LoginFromServer("131110199",
-//						"987987987", input, tempCookie);
-				
 				return engine.LoginFromServer1("131110199", "987987987", input, tempCookie);
 			}
 
 			@Override
 			protected void onPostExecute(LibReceiverData<R_LibMain> result) {
+				loodingDialog.dismiss();
 				if (result.state == 200) {
-					loodingDialog.dismiss();
 					codeDialog.dismiss();
-					// tv_test.setText(result.userinfo.toString());
 					// 获取数据
 					getBorrowStateByWeb();
 				} else {
-					loodingDialog.dismiss();
 					showMsgDialog(result.error);
 				}
 				super.onPostExecute(result);
@@ -130,7 +109,7 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 		}.execute();
 	}
 
-	private void showCodeDialog(final MyCodeDialog2 codeDialog) {
+	private void showCodeDialogFromWeb(final MyCodeDialog2 codeDialog) {
 		new AsyncTask<String, Void, LibReceiverData<String>>() {
 			@Override
 			protected LibReceiverData<String> doInBackground(String... params) {
@@ -155,7 +134,7 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 	}
 
 	/**
-	 * 从服务器获取借阅情况
+	 * 执行登录操作后，从服务器获取借阅情况
 	 */
 	public void getBorrowStateByWeb() {
 		new AsyncTask<String, Void,  LibReceiverData<R_LibBorrowState>>() {

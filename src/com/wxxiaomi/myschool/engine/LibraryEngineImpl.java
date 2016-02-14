@@ -1,13 +1,11 @@
 package com.wxxiaomi.myschool.engine;
 
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wxxiaomi.myschool.ConstantValue;
 import com.wxxiaomi.myschool.GlobalParams;
 import com.wxxiaomi.myschool.bean.lib.LibInfomation;
-import com.wxxiaomi.myschool.bean.lib.LibInfomation.Behave;
 import com.wxxiaomi.myschool.bean.lib.format.R_LibBorrowState;
 import com.wxxiaomi.myschool.bean.lib.format.R_LibLoginCode;
 import com.wxxiaomi.myschool.bean.lib.format.R_LibMain;
@@ -19,14 +17,13 @@ public class LibraryEngineImpl {
 	
 	public LibReceiverData<R_LibBorrowState> getBorrowStateByWeb(){
 		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getborrowstate";
-		Behave behave = GlobalParams.libInfo.behaves.get("getborrowstate");
+//		Behave behave = GlobalParams.libInfo.behaves.get("getborrowstate");
 		String cookie = GlobalParams.libInfo.cookie;
-		String url1 = behave.url;
-		String pars = "url="+url1+"&cookie="+cookie;
+//		String url1 = behave.url;
+		String pars = "cookie="+cookie;
 		String json = HttpClientUtil.doPost(url,pars);
 		try {
 			Gson gson = new Gson();
-			Log.i("wang", "获取BorrowState的json="+json);
 			LibReceiverData<R_LibBorrowState> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<R_LibBorrowState>>(){}.getType());
 			return fromJson;
 		}catch (Exception e) {
@@ -53,7 +50,6 @@ public class LibraryEngineImpl {
 			LibReceiverData<R_LibMain> fromJson = gson.fromJson(json,new TypeToken<LibReceiverData<R_LibMain>>(){}.getType());
 			if(fromJson.state == 200){
 				LibInfomation libInfo = new LibInfomation();
-				libInfo.behaves = fromJson.infos.behaves;
 				libInfo.cookie = fromJson.cookie;
 				libInfo.username = username;
 				libInfo.password = password;
@@ -83,7 +79,6 @@ public class LibraryEngineImpl {
 			R_LibMain fromJson = gson.fromJson(json, R_LibMain.class);
 //			if(fromJson.success == 1){
 				LibInfomation libInfo = new LibInfomation();
-				libInfo.behaves = fromJson.behaves;
 //				libInfo.cookie = fromJson.cookie;
 				libInfo.username = username;
 				libInfo.password = password;
@@ -103,13 +98,10 @@ public class LibraryEngineImpl {
 	 * @return
 	 */
 	public LibReceiverData<String> getPicCodeAndCookieFromServer1(){
-//		String url = ConstantValue.LOTTERY_URI
-//				.concat(ConstantValue.GETLOSTFOUNDITEMLIST);
 		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getpiccode";
 		String json = HttpClientUtil.doGet(url);
 		try {
 			Gson gson = new Gson();
-//			Log.i("wang", "获取图片code的json="+json);
 			LibReceiverData<String> result = gson.fromJson(json, new TypeToken<LibReceiverData<String>>(){}.getType());
 			return result;
 		} catch (Exception e) {
