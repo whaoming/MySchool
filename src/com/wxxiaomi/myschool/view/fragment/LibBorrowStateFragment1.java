@@ -15,8 +15,8 @@ import android.widget.ListView;
 import com.wxxiaomi.myschool.GlobalParams;
 import com.wxxiaomi.myschool.R;
 import com.wxxiaomi.myschool.bean.lib.BookBorrowedState;
-import com.wxxiaomi.myschool.bean.lib.format.R_LibBorrowState;
-import com.wxxiaomi.myschool.bean.lib.format.R_LibMain;
+import com.wxxiaomi.myschool.bean.lib.format.LibBorrowStateFormat;
+import com.wxxiaomi.myschool.bean.lib.format.LibMainFormat;
 import com.wxxiaomi.myschool.bean.lib.format.common.LibReceiverData;
 import com.wxxiaomi.myschool.engine.LibraryEngineImpl;
 import com.wxxiaomi.myschool.util.CommonUtil;
@@ -35,7 +35,7 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 	private LoadingDialog loodingDialog;
 	private MyCodeDialog2 codeDialog;
 	private String tempCookie;
-	private R_LibBorrowState currentPage;
+	private LibBorrowStateFormat currentPage;
 
 	@SuppressLint("InflateParams")
 	@Override
@@ -87,15 +87,15 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 	 * @param input
 	 */
 	protected void LoginByNetBeforeGetData(final String input) {
-		new AsyncTask<String, Void, LibReceiverData<R_LibMain>>() {
+		new AsyncTask<String, Void, LibReceiverData<LibMainFormat>>() {
 			@Override
-			protected LibReceiverData<R_LibMain> doInBackground(String... params) {
+			protected LibReceiverData<LibMainFormat> doInBackground(String... params) {
 				LibraryEngineImpl engine = new LibraryEngineImpl();
 				return engine.LoginFromServer1("131110199", "987987987", input, tempCookie);
 			}
 
 			@Override
-			protected void onPostExecute(LibReceiverData<R_LibMain> result) {
+			protected void onPostExecute(LibReceiverData<LibMainFormat> result) {
 				loodingDialog.dismiss();
 				if (result.state == 200) {
 					codeDialog.dismiss();
@@ -114,7 +114,7 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 			@Override
 			protected LibReceiverData<String> doInBackground(String... params) {
 				LibraryEngineImpl engine = new LibraryEngineImpl();
-				LibReceiverData<String> picCodeAndCookieFromServer1 = engine.getPicCodeAndCookieFromServer1();
+				LibReceiverData<String> picCodeAndCookieFromServer1 = engine.getPicCodeAndCookieFromServer();
 				return picCodeAndCookieFromServer1;
 			}
 
@@ -137,19 +137,18 @@ public class LibBorrowStateFragment1 extends BaseFragment {
 	 * 执行登录操作后，从服务器获取借阅情况
 	 */
 	public void getBorrowStateByWeb() {
-		new AsyncTask<String, Void,  LibReceiverData<R_LibBorrowState>>() {
+		new AsyncTask<String, Void,  LibReceiverData<LibBorrowStateFormat>>() {
 			@Override
-			protected  LibReceiverData<R_LibBorrowState> doInBackground(String... params) {
+			protected  LibReceiverData<LibBorrowStateFormat> doInBackground(String... params) {
 				LibraryEngineImpl impl = new LibraryEngineImpl();
 				return impl.getBorrowStateByWeb();
 			}
 
 			@Override
-			protected void onPostExecute( LibReceiverData<R_LibBorrowState> result) {
+			protected void onPostExecute( LibReceiverData<LibBorrowStateFormat> result) {
 				if(result.state == 200){
 					currentPage = result.infos;
 					processData(currentPage.columns);
-//					 GlobalParams.libInfo.cookie = "";
 				}else if(result.state == 1){
 					tempCookie = result.cookie;
 					showImageToDialog(result.codeByte);

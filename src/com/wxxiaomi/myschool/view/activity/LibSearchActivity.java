@@ -1,6 +1,10 @@
 package com.wxxiaomi.myschool.view.activity;
 
+import java.util.List;
+
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +17,13 @@ import android.view.Menu;
 import android.view.View;
 
 import com.wxxiaomi.myschool.R;
+import com.wxxiaomi.myschool.bean.lib.BookInfo;
+import com.wxxiaomi.myschool.bean.lib.format.LibSearchResultFormat;
+import com.wxxiaomi.myschool.bean.lib.format.common.LibReceiverData;
+import com.wxxiaomi.myschool.engine.LibraryEngineImpl;
 import com.wxxiaomi.myschool.view.activity.base.BaseActivity;
 import com.wxxiaomi.myschool.view.adapter.LibSearchResultAdapter;
+import com.wxxiaomi.myschool.view.adapter.LibSearchResultAdapter.OnResultClickListener;
 
 public class LibSearchActivity extends BaseActivity {
 
@@ -22,11 +31,10 @@ public class LibSearchActivity extends BaseActivity {
 	SearchView searchView;
 	private RecyclerView mRecyclerView;
 	private LibSearchResultAdapter adapter;
-//	private Html_Lib_Search_Main main;
-//	private Html_Lib_Search_Result info;
 	private LinearLayoutManager mLayoutManager;
 	private int lastVisibleItem = 0;
-
+	private List<BookInfo> bookList;
+	private LibSearchResultFormat currentPageItem;
 	@Override
 	protected void initView() {
 		setContentView(R.layout.activity_lib_search);
@@ -65,122 +73,84 @@ public class LibSearchActivity extends BaseActivity {
 				lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
 			}
 		});
-		
-		getMainByNet();
 	}
 
-	/**
-	 * 获取搜索结果
-	 */
-	private void getMainByNet() {
-//		final AlertDialog loddingDialog = new AlertDialog.Builder(ct).setMessage("正在加载中..").create();
-//		final LoadingDialog loddingDialog = new LoadingDialog(ct).builder().setMessage("正在初始化");
-//		loddingDialog.show();
-//		new AsyncTask<String, Void, ResponseData<Html_Lib_Search_Main>>() {
-//			@Override
-//			protected ResponseData<Html_Lib_Search_Main> doInBackground(
-//					String... params) {
-//				LibraryEngineImpl impl = new LibraryEngineImpl();
-//				return impl.getLibSearchMain();
-//			}
-//			@Override
-//			protected void onPostExecute(
-//					ResponseData<Html_Lib_Search_Main> result) {
-//				if (result.isSuccess()) {
-//					main = result.getObj();
-//					loddingDialog.dismiss();
-////					processData();
-////					closeMingDialog();
-//				} else {
-//					
-//				}
-//				super.onPostExecute(result);
-//			}
-//		}.execute();
-	}
 	
 	private void searchByNet(final String content) {
-//		new AsyncTask<Html_Lib_Search_Main, Void, ResponseData<Html_Lib_Search_Result>>() {
-//			
-//
-//			@Override
-//			protected ResponseData<Html_Lib_Search_Result> doInBackground(
-//					Html_Lib_Search_Main... params) {
-//				LibraryEngineImpl impl = new LibraryEngineImpl();
-//				return impl.getSearchResult(main, content);
-//			}
-//
-//			@Override
-//			protected void onPostExecute(
-//					ResponseData<Html_Lib_Search_Result> result) {
-//				if (result.isSuccess()) {
-////					Log.i("wamg", "进入搜索结果success中");
-//					info = result.getObj();
-//					processData();
-//				} else {
-//
-//				}
-//				super.onPostExecute(result);
-//			}
-//
-//		}.execute();
+		new AsyncTask<String, Void, LibReceiverData<LibSearchResultFormat>>() {
+			@Override
+			protected LibReceiverData<LibSearchResultFormat> doInBackground(
+					String... params) {
+				LibraryEngineImpl impl = new LibraryEngineImpl();
+				return impl.getSearchResult(content);
+			}
+
+			@Override
+			protected void onPostExecute(
+					LibReceiverData<LibSearchResultFormat> result) {
+				if (result.state == 200) {
+					processData(result.infos);
+				} else {
+
+				}
+				super.onPostExecute(result);
+			}
+
+		}.execute();
 
 	}
 	
 	protected void getNextPageByNet() {
-//		new AsyncTask<Html_Lib_Search_Main, Void, ResponseData<Html_Lib_Search_Result>>() {
-//			@Override
-//			protected ResponseData<Html_Lib_Search_Result> doInBackground(
-//					Html_Lib_Search_Main... params) {
-//				LibraryEngineImpl impl = new LibraryEngineImpl();
-//				return impl.getNextPage(info.getPageUrl(),
-//						info.getCurrentPage(), info.getUrl());
-//			}
-//
-//			@Override
-//			protected void onPostExecute(
-//					ResponseData<Html_Lib_Search_Result> result) {
-//				if (result.isSuccess()) {
-//					processNextPageData(result.getObj());
-//				} else {
-//
-//				}
-//				super.onPostExecute(result);
-//			}
-//
-//		}.execute();
+		new AsyncTask<String, Void, LibReceiverData<LibSearchResultFormat>>() {
+			@Override
+			protected LibReceiverData<LibSearchResultFormat> doInBackground(
+					String... params) {
+				LibraryEngineImpl impl = new LibraryEngineImpl();
+				return impl.getSearchResultNextPage(currentPageItem.nextPageUrl, currentPageItem.currentPage+1);
+			}
+
+			@Override
+			protected void onPostExecute(
+					LibReceiverData<LibSearchResultFormat> result) {
+				if(result.state == 200){
+					bookList.addAll(result.infos.list);
+					currentPageItem.currentPage = result.infos.currentPage;
+					processNextPageData();
+				}
+				super.onPostExecute(result);
+			}
+
+		}.execute();
 
 	}
 
-//	protected void processNextPageData(Html_Lib_Search_Result nextInfo) {
-//		info.getColumns().addAll(nextInfo.getColumns());
-//		info.setCurrentPage((info.getCurrentPage() + 1) + "");
-////		lmtv.setNormalText("已加载" + info.getCurrentPage() + "页，总共有"
-////				+ info.getPageCount() + "页");
-//		adapter.notifyItemChanged(info.getColumns().size());
-//		
-//	}
+	protected void processNextPageData() {
+		Log.i("wang", "currentPageItem.currentPage="+currentPageItem.currentPage);
+		adapter.notifyItemChanged(bookList.size());
+	}
 
-	protected void processData() {
-//		if (info.getColumns().size() == 0) {
-//			
-//		} else {
-//			if (adapter == null) {
-//				adapter = new LibSearchResultAdapter(ct, info.getColumns());
-//				mRecyclerView.setAdapter(adapter);
-//				adapter.setOnResultClickListener(new OnResultClickListener() {
-//					@Override
-//					public void click(int position) {
-//						BookInfo bookInfo = info.getColumns().get(position);
-//						Intent intent = new Intent(ct, LibBookInfoActivity.class);
-//						intent.putExtra("bookurl", bookInfo.getUrl().getBytes());
-//						startActivity(intent);
-//					}
-//				});
-//			} else {
-//				adapter.notifyItemChanged(info.getColumns().size());
-//			}
-//		}
+	protected void processData(LibSearchResultFormat infos) {
+		currentPageItem = infos;
+		if(bookList == null){
+			bookList = infos.list;
+		}else{
+			bookList.addAll(infos.list);
+		}
+		if (adapter == null) {
+			adapter = new LibSearchResultAdapter(ct, bookList);
+			mRecyclerView.setAdapter(adapter);
+			adapter.setOnResultClickListener(new OnResultClickListener() {
+				@Override
+				public void click(int position) {
+					BookInfo bookInfo = bookList.get(position);
+					Intent intent = new Intent(ct, LibBookInfoActivity.class);
+					intent.putExtra("bookurl", bookInfo.getUrl().getBytes());
+					startActivity(intent);
+				}
+			});
+		}else {
+			adapter.notifyItemChanged(infos.list.size());
+		}
 	}
 
 	@Override
@@ -208,7 +178,6 @@ public class LibSearchActivity extends BaseActivity {
 			@Override
 			public boolean onQueryTextChange(String arg0) {
 //				Log.i("wang", "searchView中改变的文字是:"+arg0);
-				
 				return false;
 			}
 		});
