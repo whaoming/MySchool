@@ -6,74 +6,16 @@ import com.google.gson.reflect.TypeToken;
 import com.wxxiaomi.myschool.ConstantValue;
 import com.wxxiaomi.myschool.GlobalParams;
 import com.wxxiaomi.myschool.bean.lib.LibInfomation;
-import com.wxxiaomi.myschool.bean.lib.format.BookDetailFormat;
-import com.wxxiaomi.myschool.bean.lib.format.LibBorrowStateFormat;
-import com.wxxiaomi.myschool.bean.lib.format.LibMainFormat;
-import com.wxxiaomi.myschool.bean.lib.format.LibSearchResultFormat;
+import com.wxxiaomi.myschool.bean.lib.format.R_LibBorrowState;
+import com.wxxiaomi.myschool.bean.lib.format.R_LibLoginCode;
+import com.wxxiaomi.myschool.bean.lib.format.R_LibMain;
 import com.wxxiaomi.myschool.bean.lib.format.common.LibReceiverData;
 import com.wxxiaomi.myschool.net.HttpClientUtil;
 
 
 public class LibraryEngineImpl {
 	
-	public LibReceiverData<BookDetailFormat> getBookInfoByUrl(String url1){
-		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getbookinfo&bookurl="+url1;
-		String json = HttpClientUtil.doGet(url);
-		try {
-			Gson gson = new Gson();
-			LibReceiverData<BookDetailFormat> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<BookDetailFormat>>(){}.getType());
-			return fromJson;
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 4数据持久化
-		return null;
-	}
-	
-	/**
-	 * 获取搜索结果的下一页
-	 * @param url1
-	 * @param page
-	 * @return
-	 */
-	public LibReceiverData<LibSearchResultFormat> getSearchResultNextPage(String url1,int page){
-		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=search&next=y&pageurl="+url1+"&page="+page;
-		String json = HttpClientUtil.doGet(url);
-		try {
-			Gson gson = new Gson();
-			LibReceiverData<LibSearchResultFormat> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<LibSearchResultFormat>>(){}.getType());
-			return fromJson;
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 4数据持久化
-		return null;
-	}
-	
-	/**
-	 * 获取搜索结果
-	 * @param keywords
-	 * @return
-	 */
-	public LibReceiverData<LibSearchResultFormat> getSearchResult(String keywords){
-		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=search&next=n&keywords="+keywords;
-		String json = HttpClientUtil.doGet(url);
-		try {
-			Gson gson = new Gson();
-			LibReceiverData<LibSearchResultFormat> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<LibSearchResultFormat>>(){}.getType());
-			return fromJson;
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		// 4数据持久化
-		return null;
-	}
-	
-	/**
-	 * 获取借阅情况
-	 * @return
-	 */
-	public LibReceiverData<LibBorrowStateFormat> getBorrowStateByWeb(){
+	public LibReceiverData<R_LibBorrowState> getBorrowStateByWeb(){
 		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getborrowstate";
 //		Behave behave = GlobalParams.libInfo.behaves.get("getborrowstate");
 		String cookie = GlobalParams.libInfo.cookie;
@@ -82,7 +24,7 @@ public class LibraryEngineImpl {
 		String json = HttpClientUtil.doPost(url,pars);
 		try {
 			Gson gson = new Gson();
-			LibReceiverData<LibBorrowStateFormat> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<LibBorrowStateFormat>>(){}.getType());
+			LibReceiverData<R_LibBorrowState> fromJson = gson.fromJson(json, new TypeToken<LibReceiverData<R_LibBorrowState>>(){}.getType());
 			return fromJson;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -99,13 +41,13 @@ public class LibraryEngineImpl {
 	 * @param input
 	 * @param cookie
 	 */
-	public LibReceiverData<LibMainFormat> LoginFromServer1(String username, String password, String input, String cookie){
+	public LibReceiverData<R_LibMain> LoginFromServer1(String username, String password, String input, String cookie){
 		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=checkLib";
 		String pars = "username="+username+"&password="+password+"&code="+input+"&cookie="+cookie;
 		String json = HttpClientUtil.doPost(url, pars);
 		try {
 			Gson gson = new Gson();
-			LibReceiverData<LibMainFormat> fromJson = gson.fromJson(json,new TypeToken<LibReceiverData<LibMainFormat>>(){}.getType());
+			LibReceiverData<R_LibMain> fromJson = gson.fromJson(json,new TypeToken<LibReceiverData<R_LibMain>>(){}.getType());
 			if(fromJson.state == 200){
 				LibInfomation libInfo = new LibInfomation();
 				libInfo.cookie = fromJson.cookie;
@@ -128,34 +70,34 @@ public class LibraryEngineImpl {
 	 * @param input
 	 * @param cookie
 	 */
-//	public LibMainFormat LoginFromServer(String username, String password, String input, String cookie){
-//		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=checkLib";
-//		String pars = "username="+username+"&password="+password+"&code="+input+"&cookie="+cookie;
-//		String json = HttpClientUtil.doPost(url, pars);
-//		try {
-//			Gson gson = new Gson();
-//			LibMainFormat fromJson = gson.fromJson(json, LibMainFormat.class);
-////			if(fromJson.success == 1){
-//				LibInfomation libInfo = new LibInfomation();
-////				libInfo.cookie = fromJson.cookie;
-//				libInfo.username = username;
-//				libInfo.password = password;
-//				libInfo.userinfo = fromJson.userinfo;
-//				GlobalParams.libInfo = libInfo;
-////			}
-//			return fromJson;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		// 4数据持久化
-//		return null;
-//	}
+	public R_LibMain LoginFromServer(String username, String password, String input, String cookie){
+		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=checkLib";
+		String pars = "username="+username+"&password="+password+"&code="+input+"&cookie="+cookie;
+		String json = HttpClientUtil.doPost(url, pars);
+		try {
+			Gson gson = new Gson();
+			R_LibMain fromJson = gson.fromJson(json, R_LibMain.class);
+//			if(fromJson.success == 1){
+				LibInfomation libInfo = new LibInfomation();
+//				libInfo.cookie = fromJson.cookie;
+				libInfo.username = username;
+				libInfo.password = password;
+				libInfo.userinfo = fromJson.userinfo;
+				GlobalParams.libInfo = libInfo;
+//			}
+			return fromJson;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 4数据持久化
+		return null;
+	}
 	
 	/**
 	 * 连接javaweb服务器获取验证码和cookie，封装成实体返回
 	 * @return
 	 */
-	public LibReceiverData<String> getPicCodeAndCookieFromServer(){
+	public LibReceiverData<String> getPicCodeAndCookieFromServer1(){
 		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getpiccode";
 		String json = HttpClientUtil.doGet(url);
 		try {
@@ -173,22 +115,22 @@ public class LibraryEngineImpl {
 	 * 连接javaweb服务器获取验证码和cookie，封装成实体返回
 	 * @return
 	 */
-//	public LibLoginCodeFormat getPicCodeAndCookieFromServer(){
-////		String url = ConstantValue.LOTTERY_URI
-////				.concat(ConstantValue.GETLOSTFOUNDITEMLIST);
-//		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getpiccode";
-//		String json = HttpClientUtil.doGet(url);
-//		try {
-//			Gson gson = new Gson();
-////			Log.i("wang", "获取图片code的json="+json);
-//			LibLoginCodeFormat r_libLoginCOde = gson.fromJson(json, LibLoginCodeFormat.class);
-//			return r_libLoginCOde;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		// 4数据持久化
-//		return null;
-//	}
+	public R_LibLoginCode getPicCodeAndCookieFromServer(){
+//		String url = ConstantValue.LOTTERY_URI
+//				.concat(ConstantValue.GETLOSTFOUNDITEMLIST);
+		String url= ConstantValue.LOTTERY_URI+"/LibServlet?action=getpiccode";
+		String json = HttpClientUtil.doGet(url);
+		try {
+			Gson gson = new Gson();
+//			Log.i("wang", "获取图片code的json="+json);
+			R_LibLoginCode r_libLoginCOde = gson.fromJson(json, R_LibLoginCode.class);
+			return r_libLoginCOde;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 4数据持久化
+		return null;
+	}
 	
 //	public Html_Lib_BookInfoDetail BookInfo2Bean(String html){
 //		Html_Lib_BookInfoDetail result = new Html_Lib_BookInfoDetail();
@@ -229,7 +171,7 @@ public class LibraryEngineImpl {
 //	public ResponseData<Html_Lib_Search_Result> getNextPage(String nexPageUrl,int currentPage, String refererUrl){
 //		ResponseData<Html_Lib_Search_Result> result = new ResponseData<Html_Lib_Search_Result>();
 //		@SuppressWarnings("deprecation")
-//		String url = nexPageUrl+a/URLEncoder.encode(("&page="+(currentPage+1)))+"=";
+//		String url = nexPageUrl+URLEncoder.encode(("&page="+(currentPage+1)))+"=";
 //		Log.i("wang", "url="+url);
 //		NetSendData sendData = new NetSendData();
 //		sendData.setUrl(url);
